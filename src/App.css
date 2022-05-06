@@ -1,0 +1,130 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+/* Home */
+.home {
+  background-color: aqua;
+  width: 100%;
+  height: 100vh;
+}
+
+.home-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.home-flex-content {
+  background-color: #ffffff;
+  width: 450px;
+  height: 440px;
+  padding: 1.5rem;
+  border-radius: 10px;
+}
+
+.home-flex-content h1 {
+  font-size: 30px;
+}
+
+/* Home Input */
+.home-input {
+  margin: 1rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.home-input input {
+  padding: 0.6rem;
+  font-size: 16px;
+  font-weight: bold;
+  min-width: 80%;
+  border: 1px solid blue;
+  border-radius: 2px;
+}
+
+.home-input input::placeholder {
+  color: #cecaca;
+}
+
+.home-input a {
+  color: #ffffff;
+  background-color: blue;
+  padding: 0.5rem;
+  width: 60px;
+  text-align: center;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Todolist pending */
+.todolist-pending {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+}
+
+.todolist-pending a {
+  color: #ffffff;
+  background-color: blue;
+  padding: 0.5rem;
+  width: 120px;
+  text-align: center;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Todolist */
+.todolist {
+  overflow-y: auto;
+  height: 220px;
+  border-top: 2px solid aqua;
+  border-bottom: 2px solid aqua;
+  padding: 0.6rem 0;
+}
+
+/* Todolist Item */
+.todolist-item {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.todolist-item-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.todolist-item .text {
+  background-color: #e6e4e4;
+  font-size: 18px;
+  padding: 0.5rem;
+  min-width: 75%;
+}
+
+.todolist-item a {
+  color: #ffffff;
+  padding: 0.5rem 0.7rem;
+  text-align: center;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 0 0.3rem;
+}
+
+.todolist-item .btn-edit {
+  background-color: blue;
+}
+
+.todolist-item .btn-del {
+  background-color: red;
+}
