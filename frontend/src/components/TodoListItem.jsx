@@ -8,7 +8,7 @@ function TodoListItem({ task }) {
   const dispatch = useDispatch();
 
   const deleteHandler = () => {
-    dispatch(deleteTask(task.id));
+    dispatch(deleteTask(task._id));
   };
 
   const editHandler = () => {

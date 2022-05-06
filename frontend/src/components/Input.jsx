@@ -25,7 +25,7 @@ function Input() {
   const editTaskHandler = () => {
     const editedTask = {
       text,
-      id: editItem.id,
+      id: editItem._id,
     };
 
     dispatch(editTask(editedTask));

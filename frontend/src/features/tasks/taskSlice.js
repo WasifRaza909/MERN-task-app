@@ -56,7 +56,13 @@ export const deleteTask = createAsyncThunk(
 );
 
 // Clear All Tasks
-export const clearTasks = createAsyncThunk("tasks/clearTasks", () => {});
+export const clearTasks = createAsyncThunk("tasks/clearTasks", async () => {
+  try {
+    return await taskService.clearTasks();
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 export const taskSlice = createSlice({
   name: "tasks",
@@ -68,7 +74,7 @@ export const taskSlice = createSlice({
         state.tasks = action.payload;
       })
       .addCase(deleteTask.fulfilled, (state, action) => {
-        state.tasks = state.tasks.filter((task) => task.id !== action.payload);
+        state.tasks = state.tasks.filter((task) => task._id !== action.payload);
       })
       .addCase(clearTasks.fulfilled, (state) => {
         state.tasks = [];
@@ -82,7 +88,7 @@ export const taskSlice = createSlice({
       })
       .addCase(editTask.fulfilled, (state, action) => {
         state.tasks = state.tasks.map((task) =>
-          task.id === action.payload.id ? action.payload : task
+          task._id === action.payload._id ? action.payload : task
         );
         state.editItem = {};
         state.editState = false;

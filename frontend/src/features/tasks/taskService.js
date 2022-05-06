@@ -1,6 +1,6 @@
 // Get Tasks
 const getTasks = async () => {
-  const res = await fetch("http://localhost:3000/tasks");
+  const res = await fetch("http://localhost:5000/api/tasks");
 
   const data = await res.json();
 
@@ -9,7 +9,7 @@ const getTasks = async () => {
 
 // Add Task
 const addTask = async (newTask) => {
-  const res = await fetch("http://localhost:3000/tasks", {
+  const res = await fetch("http://localhost:5000/api/tasks", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -24,7 +24,7 @@ const addTask = async (newTask) => {
 
 // Edit Task
 const editTask = async (editedTask) => {
-  const res = await fetch(`http://localhost:3000/tasks/${editedTask.id}`, {
+  const res = await fetch(`http://localhost:5000/api/tasks/${editedTask.id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -39,13 +39,23 @@ const editTask = async (editedTask) => {
 
 // Delete Task
 const deleteTask = async (id) => {
-  const res = await fetch(`http://localhost:3000/tasks/${id}`, {
+  const res = await fetch(`http://localhost:5000/api/tasks/${id}`, {
     method: "DELETE",
   });
 
   const data = await res.json();
 
-  return id;
+  return data.id;
+};
+
+const clearTasks = async () => {
+  const res = await fetch(`http://localhost:5000/api/tasks`, {
+    method: "DELETE",
+  });
+
+  const data = await res.json();
+
+  return data.id;
 };
 
 const taskService = {
@@ -53,6 +63,7 @@ const taskService = {
   deleteTask,
   addTask,
   editTask,
+  clearTasks,
 };
 
 export default taskService;
