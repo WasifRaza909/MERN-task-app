@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 
-import { addTask, editTask } from "../redux/actions/taskActions";
+import { addTask, editTask } from "../features/tasks/taskSlice";
 
 function Input() {
   const [text, setText] = useState("");

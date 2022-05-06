@@ -2,7 +2,7 @@ import { FaTrash, FaEdit } from "react-icons/fa";
 
 import { useDispatch } from "react-redux";
 
-import { deleteTask, setEditState } from "../redux/actions/taskActions";
+import { deleteTask, setEditState } from "../features/tasks/taskSlice";
 
 function TodoListItem({ task }) {
   const dispatch = useDispatch();

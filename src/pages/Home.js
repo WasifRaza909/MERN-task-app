@@ -2,9 +2,9 @@ import Input from "../components/Input";
 import TodoList from "../components/TodoList";
 import { useEffect } from "react";
 
-import { getTasks, clearTasks } from "../redux/actions/taskActions";
-
 import { useDispatch, useSelector } from "react-redux";
+
+import { getTasks, clearTasks } from "../features/tasks/taskSlice";
 
 function Home() {
   const dispatch = useDispatch();
