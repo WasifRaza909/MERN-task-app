@@ -1,14 +1,14 @@
 import {
-  ADD_TASK,
-  CLEAR_TASKS,
-  DELETE_TASK,
-  EDIT_TASK,
   GET_TASKS,
-  RESET_EDIT_STATES,
-  SET_TASKS,
-} from "../types";
+  DELETE_TASK,
+  CLEAR_TASKS,
+  ADD_TASK,
+  SET_EDIT_STATE,
+  EDIT_TASK,
+  RESET_EDIT_STATE,
+} from "../constants/taskConstants";
 
-export default (state, action) => {
+export const taskReducer = (state = { tasks: [] }, action) => {
   switch (action.type) {
     case GET_TASKS:
       return {
@@ -25,35 +25,33 @@ export default (state, action) => {
         tasks: state.tasks.filter((task) => task.id !== action.payload),
       };
 
-    case CLEAR_TASKS:
-      return {
-        tasks: [],
-      };
-
-    case EDIT_TASK:
+    case SET_EDIT_STATE:
       return {
         ...state,
         editItem: action.payload,
         editState: true,
       };
 
-    case SET_TASKS:
+    case EDIT_TASK:
       return {
         tasks: state.tasks.map((task) =>
           task.id === action.payload.id ? action.payload : task
         ),
       };
 
-    case RESET_EDIT_STATES:
+    case RESET_EDIT_STATE:
       return {
         ...state,
         editItem: {},
         editState: false,
       };
 
-    default:
+    case CLEAR_TASKS:
       return {
-        state,
+        tasks: [],
       };
+
+    default:
+      return state;
   }
 };

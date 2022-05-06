@@ -1,17 +1,19 @@
 import Input from "../components/Input";
 import TodoList from "../components/TodoList";
-import { useState, useEffect, useContext } from "react";
+import { useEffect } from "react";
 
-import TaskContext from "../context/tasks/taskContext";
+import { getTasks, clearTasks } from "../redux/actions/taskActions";
+
+import { useDispatch, useSelector } from "react-redux";
 
 function Home() {
-  const taskContext = useContext(TaskContext);
+  const dispatch = useDispatch();
 
-  const { getTasks, clearTasks, tasks } = taskContext;
+  const { tasks } = useSelector((state) => state.task);
 
   useEffect(() => {
-    getTasks();
-  }, []);
+    dispatch(getTasks());
+  }, [dispatch]);
 
   return (
     <div className="home">
@@ -26,7 +28,7 @@ function Home() {
           </div>
           <div className="todolist-pending">
             <p>You have {tasks.length} pending tasks</p>
-            <a onClick={clearTasks}>Clear All</a>
+            <a onClick={() => dispatch(clearTasks())}>Clear All</a>
           </div>
         </div>
       </div>

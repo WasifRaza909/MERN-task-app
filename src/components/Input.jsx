@@ -1,20 +1,23 @@
 import { FaPlus, FaPencilAlt } from "react-icons/fa";
-import { useEffect, useState, useContext } from "react";
-import TaskContext from "../context/tasks/taskContext";
+import { useEffect, useState } from "react";
 
-function Input({ setEditItem }) {
+import { useDispatch, useSelector } from "react-redux";
+
+import { addTask, editTask } from "../redux/actions/taskActions";
+
+function Input() {
   const [text, setText] = useState("");
 
-  const taskContext = useContext(TaskContext);
+  const dispatch = useDispatch();
 
-  const { addTask, setStateTasks, editState, editItem } = taskContext;
+  const { editState, editItem } = useSelector((state) => state.task);
 
   useEffect(() => {
     setText(editState ? editItem.text : "");
   }, [editItem, editState]);
 
   const addTaskHandler = () => {
-    addTask(text);
+    dispatch(addTask(text));
 
     setText("");
   };
@@ -25,7 +28,7 @@ function Input({ setEditItem }) {
       id: editItem.id,
     };
 
-    setStateTasks(editedTask);
+    dispatch(editTask(editedTask));
   };
 
   return (

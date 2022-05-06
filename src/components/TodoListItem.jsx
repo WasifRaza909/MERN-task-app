@@ -1,18 +1,18 @@
 import { FaTrash, FaEdit } from "react-icons/fa";
-import { useContext } from "react";
-import TaskContext from "../context/tasks/taskContext";
+
+import { useDispatch } from "react-redux";
+
+import { deleteTask, setEditState } from "../redux/actions/taskActions";
 
 function TodoListItem({ task }) {
-  const taskContext = useContext(TaskContext);
-
-  const { deleteTask, editTask } = taskContext;
+  const dispatch = useDispatch();
 
   const deleteHandler = () => {
-    deleteTask(task.id);
+    dispatch(deleteTask(task.id));
   };
 
   const editHandler = () => {
-    editTask(task);
+    dispatch(setEditState(task));
   };
 
   return (
