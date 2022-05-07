@@ -1,6 +1,7 @@
 import { FaTrash, FaEdit } from "react-icons/fa";
 
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 import { deleteTask, setEditState } from "../features/tasks/taskSlice";
 
@@ -20,12 +21,12 @@ function TodoListItem({ task }) {
       <div className="todolist-item-flex">
         <p className="text">{task.text}</p>
         <div>
-          <a onClick={editHandler} className="btn-edit">
+          <Link to="/" onClick={editHandler} className="btn-edit">
             <FaEdit />
-          </a>
-          <a onClick={deleteHandler} className="btn-del">
+          </Link>
+          <Link to="/" onClick={deleteHandler} className="btn-del">
             <FaTrash />
-          </a>
+          </Link>
         </div>
       </div>
     </div>

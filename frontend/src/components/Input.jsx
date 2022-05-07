@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { addTask, editTask } from "../features/tasks/taskSlice";
+import { Link } from "react-router-dom";
 
 function Input() {
   const [text, setText] = useState("");
@@ -42,13 +43,13 @@ function Input() {
         placeholder="Add your new todo"
       />
       {!editState ? (
-        <a onClick={addTaskHandler}>
+        <Link to="/" onClick={addTaskHandler}>
           <FaPlus />
-        </a>
+        </Link>
       ) : (
-        <a onClick={editTaskHandler}>
+        <Link to="/" onClick={editTaskHandler}>
           <FaPencilAlt />
-        </a>
+        </Link>
       )}
     </div>
   );
