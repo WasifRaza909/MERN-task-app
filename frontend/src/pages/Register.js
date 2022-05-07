@@ -1,19 +1,93 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { getUserViaToken, registerUser } from "../features/auth/authSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 function Register() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+
+  const { user } = useSelector((state) => state.auth);
+
+  const { name, email, password, confirmPassword } = formData;
+
+  useEffect(() => {
+    dispatch(getUserViaToken());
+
+    if (user && user.name) {
+      navigate("/");
+    }
+  }, [dispatch, user]);
+
+  const onChangeHandler = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+
+    if (password !== confirmPassword) {
+      console.log("Password do not matched");
+      return;
+    }
+
+    dispatch(registerUser({ name, email, password }));
+
+    setFormData({
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    });
+  };
+
   return (
     <div className="home register">
       <div className="home-flex">
         <div className="home-flex-content">
           <div className="">
             <h1>Register Yourself</h1>
-            <input type="text" name="text" placeholder="Enter name" />
-            <input type="email" name="text" placeholder="Enter email" />
-            <input type="password" name="text" placeholder="Enter password" />
-            <input type="password" name="text" placeholder="Confirm password" />
+            <input
+              value={name}
+              onChange={onChangeHandler}
+              type="text"
+              name="name"
+              placeholder="Enter name"
+            />
+            <input
+              type="email"
+              value={email}
+              onChange={onChangeHandler}
+              name="email"
+              placeholder="Enter email"
+            />
+            <input
+              value={password}
+              onChange={onChangeHandler}
+              type="password"
+              name="password"
+              placeholder="Enter password"
+            />
+            <input
+              value={confirmPassword}
+              onChange={onChangeHandler}
+              type="password"
+              name="confirmPassword"
+              placeholder="Confirm password"
+            />
             <div className="last-section">
-              <button>Submit</button>
+              <button onClick={submitHandler}>Submit</button>
               <p>
                 Already have an account ? <Link to="/login">Login</Link>
               </p>
