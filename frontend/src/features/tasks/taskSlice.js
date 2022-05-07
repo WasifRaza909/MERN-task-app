@@ -3,6 +3,7 @@ import taskService from "./taskService";
 
 const initialState = {
   tasks: [],
+  error: {},
   editItem: {},
   editState: false,
 };
@@ -25,7 +26,9 @@ export const addTask = createAsyncThunk("tasks/add", async (text, thunkAPI) => {
   try {
     return await taskService.addTask(newTask);
   } catch (error) {
-    console.log(error);
+    const message = error.message;
+
+    return thunkAPI.rejectWithValue(message);
   }
 });
 
@@ -73,14 +76,30 @@ export const taskSlice = createSlice({
       .addCase(getTasks.fulfilled, (state, action) => {
         state.tasks = action.payload;
       })
+      .addCase(getTasks.rejected, (state, action) => {
+        state.error = action.payload;
+        state.tasks = [];
+      })
       .addCase(deleteTask.fulfilled, (state, action) => {
         state.tasks = state.tasks.filter((task) => task._id !== action.payload);
+      })
+      .addCase(deleteTask.rejected, (state, action) => {
+        state.error = action.payload;
+        state.tasks = [];
       })
       .addCase(clearTasks.fulfilled, (state) => {
         state.tasks = [];
       })
+      .addCase(clearTasks.rejected, (state, action) => {
+        state.error = action.payload;
+        state.tasks = [];
+      })
       .addCase(addTask.fulfilled, (state, action) => {
         state.tasks = [...state.tasks, action.payload];
+      })
+      .addCase(addTask.rejected, (state, action) => {
+        state.error = action.payload;
+        state.tasks = [];
       })
       .addCase(setEditState.fulfilled, (state, action) => {
         state.editItem = action.payload;
@@ -92,6 +111,10 @@ export const taskSlice = createSlice({
         );
         state.editItem = {};
         state.editState = false;
+      })
+      .addCase(editTask.rejected, (state, action) => {
+        state.error = action.payload;
+        state.tasks = [];
       });
   },
 });

@@ -24,7 +24,9 @@ function Login() {
     if (user && user.name) {
       navigate("/");
     }
-  }, [dispatch, user, navigate]);
+
+    // eslint-disable-next-line
+  }, [user.name, navigate]);
 
   const onChangeHandler = (e) => {
     setFormData({

@@ -3,7 +3,15 @@ const Task = require("../models/taskModel");
 // Get Tasks
 const getTasks = async (req, res) => {
   try {
-    const tasks = await Task.find();
+    if (!req.user) {
+      res.status(400).json({
+        message: "User not found!",
+      });
+    }
+
+    const tasks = await Task.find({
+      user: req.user.id,
+    });
 
     res.status(200).json(tasks);
   } catch (error) {
@@ -14,6 +22,12 @@ const getTasks = async (req, res) => {
 // Add Task
 const addTask = async (req, res) => {
   try {
+    if (!req.user) {
+      res.status(400).json({
+        message: "User not found!",
+      });
+    }
+
     if (!req.body.text) {
       res.status(400).json({
         message: "Please add a text field",
@@ -22,6 +36,7 @@ const addTask = async (req, res) => {
 
     const task = await Task.create({
       text: req.body.text,
+      user: req.user.id,
     });
 
     res.status(200).json(task);
@@ -33,11 +48,23 @@ const addTask = async (req, res) => {
 // Delete Task
 const deleteTask = async (req, res) => {
   try {
+    if (!req.user) {
+      res.status(400).json({
+        message: "User not found!",
+      });
+    }
+
     const task = await Task.findById(req.params.id);
 
     if (!task) {
       return res.status(400).json({
         message: "Task not found!",
+      });
+    }
+
+    if (task.user.toString() !== req.user.id) {
+      return res.status(400).json({
+        message: "Not authorized.",
       });
     }
 
@@ -52,6 +79,12 @@ const deleteTask = async (req, res) => {
 // Update Task
 const updateTask = async (req, res) => {
   try {
+    if (!req.user) {
+      res.status(400).json({
+        message: "User not found!",
+      });
+    }
+
     const task = await Task.findById(req.params.id);
 
     if (!task) {
@@ -59,6 +92,12 @@ const updateTask = async (req, res) => {
 
       return res.status(400).json({
         message: "Task not found!",
+      });
+    }
+
+    if (task.user.toString() !== req.user.id) {
+      return res.status(400).json({
+        message: "Not authorized.",
       });
     }
 
@@ -75,7 +114,13 @@ const updateTask = async (req, res) => {
 // Delete all Tasks
 const deleteAllTasks = async (req, res) => {
   try {
-    await Task.deleteMany();
+    if (!req.user) {
+      res.status(400).json({
+        message: "User not found!",
+      });
+    }
+
+    await Task.deleteMany({ user: req.user.id });
 
     res.status(200).json({
       message: "All Tasks Deleted",

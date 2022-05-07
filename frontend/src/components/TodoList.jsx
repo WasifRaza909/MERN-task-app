@@ -8,9 +8,8 @@ function TodoList() {
   return (
     <>
       <div className="todolist">
-        {tasks.map((task, index) => (
-          <TodoListItem key={index} task={task} />
-        ))}
+        {tasks.length > 0 &&
+          tasks.map((task, index) => <TodoListItem key={index} task={task} />)}
       </div>
     </>
   );
