@@ -25,7 +25,7 @@ function Register() {
     if (user && user.name) {
       navigate("/");
     }
-  }, [dispatch, user]);
+  }, [dispatch, user, navigate]);
 
   const onChangeHandler = (e) => {
     setFormData({

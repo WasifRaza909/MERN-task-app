@@ -21,7 +21,7 @@ function Home() {
     }
 
     dispatch(getTasks());
-  }, [dispatch, user]);
+  }, [dispatch, user, navigate]);
 
   return (
     <div className="home">

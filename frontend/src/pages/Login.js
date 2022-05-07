@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, Navigate, useNavigationType } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getUserViaToken, loginUser } from "../features/auth/authSlice";
@@ -24,7 +24,7 @@ function Login() {
     if (user && user.name) {
       navigate("/");
     }
-  }, [dispatch, user]);
+  }, [dispatch, user, navigate]);
 
   const onChangeHandler = (e) => {
     setFormData({
