@@ -28,7 +28,9 @@ function Home() {
           </div>
           <div className="todolist-pending">
             <p>You have {tasks.length} pending tasks</p>
-            <a onClick={() => dispatch(clearTasks())}>Clear All</a>
+            <a href="/" onClick={() => dispatch(clearTasks())}>
+              Clear All
+            </a>
           </div>
         </div>
       </div>
