@@ -13,12 +13,14 @@
   "version": "1.0.0",
   "main": "server.js",
   "devDependencies": {
+    "concurrently": "^7.1.0",
     "nodemon": "^2.0.16"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "nodemon backend/server.js",
-    "client": "npm start --prefix frontend"
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run client\" \"npm run server\""
   },
   "repository": {
     "type": "git",
