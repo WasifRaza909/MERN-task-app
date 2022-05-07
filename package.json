@@ -20,7 +20,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "nodemon backend/server.js",
     "client": "npm start --prefix frontend",
-    "dev": "concurrently \"npm run client\" \"npm run server\""
+    "dev": "concurrently \"npm run client\" \"npm run server\"",
+    "heroku-postscript": "NPM_CONFIG_PRODUCTION=false npm i --prefix frontend npm run build --prefix frontend"
   },
   "repository": {
     "type": "git",
